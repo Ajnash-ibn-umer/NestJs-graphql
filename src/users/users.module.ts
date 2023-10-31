@@ -1,6 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { UsersController } from './controllers/users/users.controller';
-import { Mongoose } from 'mongoose';
+
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './controllers/users/schemas/user.schema';
 import { AuthService } from './services/auth/auth.service';
