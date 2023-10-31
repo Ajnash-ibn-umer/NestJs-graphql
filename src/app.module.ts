@@ -4,8 +4,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  
-  imports: [ConfigModule.forRoot(),UsersModule,MongooseModule.forRoot(process.env.DB)],
+  imports: [
+    ConfigModule.forRoot(),
+    UsersModule,
+    MongooseModule.forRoot(process.env.DB),
+  ],
   controllers: [],
   providers: [],
 })
