@@ -21,6 +21,29 @@ export class registerUserInfo{
         type:String
     })
     password:string;
+
+    @ApiProperty({
+        required:true,
+        description:"company information",
+        type:String
+    })
+    company:string;
+
+
+    @ApiProperty({
+        required:true,
+        description:"0 - basic docs ,100 - company information",
+        type:String
+    })
+    screenType:[number];
+
+    @ApiProperty({
+        required:true,
+       
+        type:String
+    })
+    responseFormat:[number]
+
 }
 
 export class loginUserData{

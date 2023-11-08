@@ -9,11 +9,13 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { LoggerMiddleware } from './middlewares/logger/logger.middleware';
 import { UserService } from './services/user/user.service';
+import { Company, CompanySchema } from './controllers/users/schemas/company.schema';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema },
+      {name:Company.name,schema:CompanySchema}]),
     JwtModule.register({
       secret: process.env.TOKEN_SECRET,
       signOptions: {

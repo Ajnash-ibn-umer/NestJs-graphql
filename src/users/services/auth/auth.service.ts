@@ -2,7 +2,9 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
+import { ModelWeight } from 'src/model_wieght.ts/model_weights';
+import { ModelResponse_format } from 'src/model_wieght.ts/reponse_formate';
 import { User } from 'src/users/controllers/users/schemas/user.schema';
 
 @Injectable()
@@ -15,21 +17,75 @@ export class AuthService {
 
   async signUp(userInfo) {
     try {
+      console.log({ userInfo });
+
+      userInfo.company=new mongoose.Types.ObjectId(userInfo.company)
       const newUser = await new this.userModel(userInfo).save();
 
-      this.mailerService.sendMail({
-        to: 'ajnash.k02@gmail.com',
-        from: 'ajnash.nexteons@gmail.com',
-        subject: 'Testing',
-        text: 'welcome',
-        template: 'index',
-        context: {
-          otp: Math.floor(1000 + Math.random() * 9000),
-          name: userInfo.name,
-        },
+      // this.mailerService.sendMail({
+      //   to: 'ajnash.k02@gmail.com',
+      //   from: 'ajnash.nexteons@gmail.com',
+      //   subject: 'Testing',
+      //   text: 'welcome',
+      //   template: 'index',
+      //   context: {
+      //     otp: Math.floor(1000 + Math.random() * 9000),
+      //     name: userInfo.name,
+      //   },
+      // });
+
+      let userAggregation = [];
+
+      userAggregation.push({
+        $match: { _id: new mongoose.Types.ObjectId(newUser._id) },
       });
 
-      return newUser;
+      userAggregation.push(
+        new ModelResponse_format().userReponseFormat(
+          0,
+          userInfo.responseFormat,
+        ),
+      );
+
+      if (userInfo.screentype.includes(100)) {
+        const companyPipeline=()=>{ 
+          let pipeline = [];
+          console.log("company format",   new ModelResponse_format().companyResponseFormat(
+            1000,
+            userInfo.responseFormat
+          ));
+          
+          pipeline.push(
+            {
+              $match:{ $expr:{$eq:["$_id","$$companyId"]}}
+            },
+            new ModelResponse_format().companyResponseFormat(
+              1000,
+              userInfo.responseFormat
+            )
+          )
+          return pipeline;
+        }
+      
+        userAggregation.push({
+          $lookup: {
+            let:{companyId:"$company"},
+            from: 'companies',
+           pipeline:companyPipeline(),
+            as: 'company',
+          }
+         
+        },
+        {
+          $unwind:{
+            path:"$company"
+          }
+        });
+      }
+      const userResult = await this.userModel.aggregate(userAggregation);
+      console.log({ userResult });
+
+      return userResult;
     } catch (error) {
       throw new HttpException(error.message, 500);
     }

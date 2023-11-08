@@ -1,8 +1,12 @@
 import { HttpException, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { S3 } from 'aws-sdk';
+import { Model } from 'mongoose';
+import { Company } from 'src/users/controllers/users/schemas/company.schema';
 
 @Injectable()
 export class UserService {
+  constructor(@InjectModel(Company.name) private companyModal :Model<Company>){}
   async uploadFile(file) {
     try {
       const bucket = await this.s3Config();
@@ -23,6 +27,16 @@ export class UserService {
     } catch (error) {
       throw new HttpException(error.message ?? error, 500);
     }
+  }
+
+  async addCompany(data){
+
+    const newCompany=await new this.companyModal(data).save()
+  
+  console.log({newCompany});
+
+  return newCompany
+  
   }
 
   async s3Config() {
