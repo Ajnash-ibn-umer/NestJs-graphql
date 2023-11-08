@@ -12,15 +12,15 @@ import {
 import mongoose, { Model } from 'mongoose';
 import { User, UserSchema } from './schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { loginUserData, registerUserInfo } from 'src/users/dtos/user.dto';
-import { AuthService } from 'src/users/services/auth/auth.service';
-import { UsersGuard } from 'src/users/guards/access/users.guard';
+import { loginUserData, registerUserInfo } from '../../../users/dtos/user.dto';
+import { AuthService } from '../../../users/services/auth/auth.service';
+import { UsersGuard } from '../../../users/guards/access/users.guard';
 import { Request } from 'express';
-import { RefreshGuard } from 'src/users/guards/refresh/refresh.guard';
+import { RefreshGuard } from '../../../users/guards/refresh/refresh.guard';
 import { ApiBody } from '@nestjs/swagger';
-import { UserService } from 'src/users/services/user/user.service';
+import { UserService } from '../../../users/services/user/user.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { companyDto } from 'src/users/dtos/company.dto';
+import { companyDto } from '../../../users/dtos/company.dto';
 
 @Controller('users')
 export class UsersController {
