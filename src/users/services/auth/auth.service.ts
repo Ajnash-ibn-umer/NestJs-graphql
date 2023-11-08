@@ -3,9 +3,9 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
-import { ModelWeight } from 'src/model_wieght.ts/model_weights';
-import { ModelResponse_format } from 'src/model_wieght.ts/reponse_formate';
-import { User } from 'src/users/controllers/users/schemas/user.schema';
+import { ModelWeight } from '../../../model_wieght.ts/model_weights';
+import { ModelResponse_format } from '../../../model_wieght.ts/reponse_formate';
+import { User } from '../../../users/controllers/users/schemas/user.schema';
 
 @Injectable()
 export class AuthService {
