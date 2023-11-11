@@ -1,0 +1,127 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AddBlogResponse {
+  data: Blog
+  message: String!
+}
+
+"""Blog based Quaries and mutations"""
+type Blog {
+  _blog_category: String
+  _blog_categoryDetails: BlogCategory
+  _content: String!
+  _createdAt: String!
+  _description: String!
+  _id: String!
+  _name: String!
+  _status: Float!
+  post: Blog!
+}
+
+type BlogCategory {
+  _createdAt: Float
+  _id: String
+  _name: String
+  _priority: Float
+  _status: Float
+}
+
+type EditBlogResponse {
+  data: Blog
+  message: String!
+}
+
+type GeneralResponse {
+  message: String!
+}
+
+type ListingBlogCatResponse {
+  data: dataBlogCat!
+  message: String!
+}
+
+type ListingBlogResponse {
+  data: dataBlog!
+  message: String!
+}
+
+type Mutation {
+  """add blogs """
+  CreateNewBlog(addBlogDTO: addBlogDTO!): AddBlogResponse!
+  addCategory(categoryData: addBlogCategoryDTO!): addBlogCategoryResponse!
+  editBlog(editBlogDTO: editBlogDTO!): EditBlogResponse!
+  editCategory(categoryData: editBlogCategoryDTO!): addBlogCategoryResponse!
+  statusChange(statusChangeDTO: statusChangeDTO!): GeneralResponse!
+}
+
+type Query {
+  list(listingBlog: listingBlogDTO!): ListingBlogResponse!
+  listBlogCategory(listingBlogCat: listingBlogCatDTO!): ListingBlogCatResponse!
+  ping(name: String!): String!
+}
+
+input addBlogCategoryDTO {
+  _name: String!
+  _priority: Float!
+  _status: Float!
+}
+
+type addBlogCategoryResponse {
+  data: BlogCategory!
+  message: String!
+}
+
+input addBlogDTO {
+  _content: String!
+  _description: String!
+  _name: String!
+}
+
+type dataBlog {
+  list: [Blog!]
+}
+
+type dataBlogCat {
+  list: [BlogCategory!]
+}
+
+input editBlogCategoryDTO {
+  _id: String!
+  _name: String!
+  _priority: Float!
+  _status: Float!
+}
+
+input editBlogDTO {
+  _content: String!
+  _description: String!
+  _id: String!
+  _name: String!
+}
+
+input listingBlogCatDTO {
+  blogCatIds: [String!]
+  limit: Float! = 10
+  searchingText: String
+  skip: Float! = 0
+  sortOrder: Float! = 1
+  sortType: Float! = 0
+  statusArray: [Float!]! = [1, 2, 0]
+}
+
+input listingBlogDTO {
+  blogIds: [String!]
+  limit: Float! = 10
+  searchingText: String!
+  skip: Float! = 0
+  sortOrder: Float! = 1
+  sortType: Float! = 0
+  statusArray: [Float!]! = [1, 2, 0]
+}
+
+input statusChangeDTO {
+  ids: [String!]!
+  status: Float!
+}
