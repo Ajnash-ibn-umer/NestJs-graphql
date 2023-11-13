@@ -9,7 +9,10 @@ async function bootstrap() {
     region: process.env.CDN_BUCKET_REGION,
   });
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
+  app.enableCors({
+    origin: '*',
+    credentials: true,
+  });
   await app.listen(3000);
 }
 bootstrap();
