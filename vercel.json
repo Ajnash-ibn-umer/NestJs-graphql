@@ -3,7 +3,7 @@
     "installCommand": "npm install",
     "headers": [
         {
-            "source": "/(.*)",
+            "source": "/graphql/(.*)",
             "headers": [
                 {
                     "key": "Access-Control-Allow-Credentials",
