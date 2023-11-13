@@ -30,7 +30,7 @@ import { GlobalGallaryModule } from './modules/global-gallary/global-gallary.mod
       },
       sortSchema: true,
       playground: false,
-
+      introspection: true,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     BlogModule,
