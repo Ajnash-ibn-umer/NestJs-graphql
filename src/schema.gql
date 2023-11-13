@@ -7,7 +7,7 @@ type AddBlogResponse {
   message: String!
 }
 
-"""Blog based Quaries and mutations"""
+"""Blog based Quires and mutations"""
 type Blog {
   _blog_category: String
   _blog_categoryDetails: BlogCategory
@@ -17,15 +17,20 @@ type Blog {
   _id: String!
   _name: String!
   _status: Float!
-  post: Blog!
 }
 
+"""Blog category schema"""
 type BlogCategory {
   _createdAt: Float
   _id: String
   _name: String
   _priority: Float
   _status: Float
+}
+
+input CreateGlobalGallaryInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
 }
 
 type EditBlogResponse {
@@ -35,6 +40,11 @@ type EditBlogResponse {
 
 type GeneralResponse {
   message: String!
+}
+
+type GlobalGallary {
+  """Example field (placeholder)"""
+  exampleField: Int!
 }
 
 type ListingBlogCatResponse {
@@ -49,17 +59,27 @@ type ListingBlogResponse {
 
 type Mutation {
   """add blogs """
-  CreateNewBlog(addBlogDTO: addBlogDTO!): AddBlogResponse!
+  Blog_Create(addBlogDTO: addBlogDTO!): AddBlogResponse!
+  Blog_Update(editBlogDTO: editBlogDTO!): EditBlogResponse!
   addCategory(categoryData: addBlogCategoryDTO!): addBlogCategoryResponse!
-  editBlog(editBlogDTO: editBlogDTO!): EditBlogResponse!
+  createGlobalGallary(createGlobalGallaryInput: CreateGlobalGallaryInput!): GlobalGallary!
   editCategory(categoryData: editBlogCategoryDTO!): addBlogCategoryResponse!
+  removeGlobalGallary(id: Int!): GlobalGallary!
   statusChange(statusChangeDTO: statusChangeDTO!): GeneralResponse!
+  updateGlobalGallary(updateGlobalGallaryInput: UpdateGlobalGallaryInput!): GlobalGallary!
 }
 
 type Query {
+  globalGallary(id: Int!): GlobalGallary!
   list(listingBlog: listingBlogDTO!): ListingBlogResponse!
   listBlogCategory(listingBlogCat: listingBlogCatDTO!): ListingBlogCatResponse!
-  ping(name: String!): String!
+  ping(name: String): String!
+}
+
+input UpdateGlobalGallaryInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
 
 input addBlogCategoryDTO {

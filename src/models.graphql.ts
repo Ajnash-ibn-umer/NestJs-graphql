@@ -1,25 +1,26 @@
-import { Field, ID, ObjectType } from "@nestjs/graphql";
-import { truncate } from "fs";
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { truncate } from 'fs';
 
-@ObjectType("BlogCategory")
+@ObjectType('BlogCategory', { description: 'Blog category schema' })
+
 export class BlogCategory {
-  @Field({nullable:true})
+  @Field({ nullable: true })
   _id: string;
 
- @Field({nullable:true})
+  @Field({ nullable: true })
   _name: string;
 
- @Field({nullable:true})
+  @Field({ nullable: true })
   _priority: number;
 
- @Field({nullable:true})
+  @Field({ nullable: true })
   _status: number;
 
- @Field({nullable:true})
+  @Field({ nullable: true })
   _createdAt: number;
 }
 
-@ObjectType('Blog',{description:"Blog based Quaries and mutations"})
+@ObjectType('Blog', { description: 'Blog based Quires and mutations' })
 export class Blog {
   @Field()
   _id?: string;
@@ -39,12 +40,9 @@ export class Blog {
   @Field()
   _status?: number;
 
- 
+  @Field((type) => BlogCategory, { nullable: true })
+  _blog_categoryDetails: BlogCategory;
 
-  @Field((type)=>BlogCategory,{nullable:true})
-  _blog_categoryDetails:BlogCategory;
-
-  
-  @Field((type)=>String,{nullable:true})
-  _blog_category:string;
+  @Field((type) => String, { nullable: true })
+  _blog_category: string;
 }

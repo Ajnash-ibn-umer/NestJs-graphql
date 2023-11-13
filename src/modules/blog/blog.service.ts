@@ -13,6 +13,7 @@ import { responseFormat } from 'src/utils/projection';
 @Injectable()
 export class BlogService {
   constructor(@InjectModel('blogs') private readonly blogModel: Model<Blog>) {}
+ 
   async addBlogService(dto: addBlogDTO) {
     const newBlog = await new this.blogModel({
       _content: dto._content,
@@ -21,7 +22,7 @@ export class BlogService {
       _name: dto._name,
       _status: 1,
     }).save();
-    console.log({ newBlog });
+
 
     return {
       message: 'Success',
@@ -70,11 +71,9 @@ export class BlogService {
     }
   }
 
-  async blogListService(dto: listingBlogDTO,projection) {
+  async blogListService(dto: listingBlogDTO, projection) {
     try {
       const blogAggregationArray = [];
-
-
 
       if (dto.searchingText !== '') {
         blogAggregationArray.push({
@@ -114,7 +113,7 @@ export class BlogService {
         });
       }
 
-      blogAggregationArray.push(responseFormat(projection.list))
+      blogAggregationArray.push(responseFormat(projection.list));
       switch (dto.sortType) {
         case 0:
           blogAggregationArray.push({
@@ -142,35 +141,32 @@ export class BlogService {
           });
           break;
       }
-      console.log( "cat",projection.list._blog_categoryDetails);
-      
- if(projection.list._blog_categoryDetails  ){
-  console.log("in pipiline");
-  
-  blogAggregationArray.push(
-    {
-      $lookup: {
-        from: 'blog_categories',
-        let: { id: '$_blog_category' },
-        pipeline: [
+
+      if (projection.list._blog_categoryDetails) {
+        blogAggregationArray.push(
           {
-            $match: {
-              $expr: [{ $eq: ['$_id', '$$id'] }],
+            $lookup: {
+              from: 'blog_categories',
+              let: { id: '$_blog_category' },
+              pipeline: [
+                {
+                  $match: {
+                    $expr: [{ $eq: ['$_id', '$$id'] }],
+                  },
+                },
+                responseFormat(projection.list._blog_categoryDetails),
+              ],
+              as: '_blog_categoryDetails',
             },
           },
-          responseFormat(projection.list._blog_categoryDetails)
-        ],
-        as: '_blog_categoryDetails',
-      },
-    },
-    {
-      $unwind: {
-        path: '$_blog_categoryDetails',
-        preserveNullAndEmptyArrays: true,
-      },
-    },
-  )
- }
+          {
+            $unwind: {
+              path: '$_blog_categoryDetails',
+              preserveNullAndEmptyArrays: true,
+            },
+          },
+        );
+      }
 
       console.log(blogAggregationArray);
       const blogs = await this.blogModel.aggregate(blogAggregationArray).exec();

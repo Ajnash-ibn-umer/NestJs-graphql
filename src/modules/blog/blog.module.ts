@@ -3,6 +3,7 @@ import { BlogResolver } from './blog.resolver';
 import { BlogService } from './blog.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { blogSchema } from 'src/models/blog.model';
+
 @Module({
   providers: [BlogResolver, BlogService],
   imports:[
