@@ -18,7 +18,7 @@ import { GlobalGallaryModule } from './modules/global-gallary/global-gallary.mod
     MongooseModule.forRoot(process.env.DB),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), './schema.gql'),
+      autoSchemaFile: true,
       formatError: (error: any) => {
         const graphQLFormattedError = {
           message:
