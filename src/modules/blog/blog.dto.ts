@@ -1,5 +1,5 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
-import { Blog } from 'src/models.graphql';
+import { Blog } from '../../models.graphql';
 
 @InputType()
 export class addBlogDTO {

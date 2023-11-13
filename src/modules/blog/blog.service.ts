@@ -7,8 +7,8 @@ import {
 } from './blog.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
-import { Blog } from 'src/models/blog.model';
-import { responseFormat } from 'src/utils/projection';
+import { Blog } from '../../models/blog.model';
+import { responseFormat } from '../../utils/projection';
 
 @Injectable()
 export class BlogService {

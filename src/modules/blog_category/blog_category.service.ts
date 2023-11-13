@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { addBlogCategoryDTO, editBlogCategoryDTO, listingBlogCatDTO } from './blog_category.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { BlogCat } from 'src/models/blog_category.model';
+import { BlogCat } from '../../models/blog_category.model';
 import mongoose, { Model } from 'mongoose';
 import { statusChangeDTO } from '../blog/blog.dto';
-import { responseFormat } from 'src/utils/projection';
+import { responseFormat } from '../../utils/projection';
 
 @Injectable()
 export class BlogCategoryService {

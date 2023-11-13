@@ -2,7 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import {  ListingBlogCatResponse, addBlogCategoryDTO, addBlogCategoryResponse, editBlogCategoryDTO, listingBlogCatDTO } from './blog_category.dto';
 import { BlogCategoryService } from './blog_category.service';
 import { GeneralResponse, statusChangeDTO } from '../blog/blog.dto';
-import { BlogCategory } from 'src/models.graphql';
+import { BlogCategory } from '../../models.graphql';
 
 @Resolver(of=> BlogCategory )
 export class BlogCategoryResolver {

@@ -18,8 +18,8 @@ import {
   statusChangeDTO,
 } from './blog.dto';
 import { BlogService } from './blog.service';
-import { Blog } from 'src/models.graphql';
-import getProjection from 'src/utils/projection';
+import { Blog } from '../../models.graphql';
+import getProjection from '../../utils/projection';
 import { GraphQLError, GraphQLResolveInfo } from 'graphql';
 import { NextFunction } from 'express';
 import { HttpException, HttpStatus } from '@nestjs/common';

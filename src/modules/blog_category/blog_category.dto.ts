@@ -1,6 +1,6 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
 import { GeneralResponse } from '../blog/blog.dto';
-import { BlogCategory } from 'src/models.graphql';
+import { BlogCategory } from '../../models.graphql';
 
 
 
